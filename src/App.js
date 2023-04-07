@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import { Auth } from "./auth/Auth";
 import { LoginPassword } from "./auth/password/LoginPassword";
 import { SignUpPassword } from "./auth/password/SignUpPassword";
+import { PhoneModal } from "./auth/phone/PhoneModal";
+
 import { Home } from "./Home";
 
 const App = () => (
@@ -13,6 +15,7 @@ const App = () => (
       <Route path="/home" element={<Home />} />
       <Route path="/login-password" element={<LoginPassword />} />
       <Route path="/sign-up" element={<SignUpPassword />} />
+      <Route path="/sign-in-phone" element={<PhoneModal />} />
     </Routes>
   </>
 );
