@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {  AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../google/config";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../services/config";
+import queryString from "query-string";
 
 export function LoginPassword() {
   const [input, setInput] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
 
-
+  let navigate = useNavigate();
+  const location = useLocation();
+  const query = queryString.parse(location.search);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,19 +20,20 @@ export function LoginPassword() {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        console.log("logged in!");
         // Signed in
-
+        navigate("/home");
       })
       .catch((err) => {
         if (
-        err.code === AuthErrorCodes.INVALID_PASSWORD ||
-        err.code === AuthErrorCodes.USER_DELETED
-      ) {
-        setError("The email address or password is incorrect");
-      } else {
-        console.log(err.code);
-        alert(err.code);
-      }
+          err.code === AuthErrorCodes.INVALID_PASSWORD ||
+          err.code === AuthErrorCodes.USER_DELETED
+        ) {
+          setError("The email address or password is incorrect");
+        } else {
+          console.log(err.code);
+          alert(err.code);
+        }
       });
   };
 
@@ -87,6 +90,11 @@ export function LoginPassword() {
           <Link to={"/sign-up"}>Sign Up</Link>
         </p>
       </div>
+      {query.length > 0 ? (
+        <p>
+          <Link to={"/"}>Other methods</Link>
+        </p>
+      ) : null}
     </div>
   );
 }

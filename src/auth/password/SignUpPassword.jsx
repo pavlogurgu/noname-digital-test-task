@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthErrorCodes, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../google/config";
-
+import { auth } from "../services/config";
 
 export function SignUpPassword() {
   const [input, setInput] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
 
-
+  let navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,26 +15,25 @@ export function SignUpPassword() {
     let email = input.email.toLowerCase().trim();
     let password = input.password;
 
-
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up
         console.log(userCredential.user);
-    
+        navigate("/login-password");
       })
       .catch((err) => {
         if (err.code === AuthErrorCodes.WEAK_PASSWORD) {
-        setError("The password is too weak.");
-      } else if (err.code === AuthErrorCodes.EMAIL_EXISTS) {
-        setError("The email address is already in use.");
-      } else {
-        console.log(err.code);
-        alert(err.code);
-      }
+          setError("The password is too weak.");
+        } else if (err.code === AuthErrorCodes.EMAIL_EXISTS) {
+          setError("The email address is already in use.");
+        } else {
+          console.log(err.code);
+          alert(err.code);
+        }
       });
   };
 
-   const handleChange = (e) => {
+  const handleChange = (e) => {
     setInput((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -85,9 +83,12 @@ export function SignUpPassword() {
       <div className="option">
         <p>
           Already have an account?
-          <Link to='/login'>Sign in</Link>
+          <Link to="/login-password">Sign in</Link>
         </p>
       </div>
+      <p>
+        <Link to={"/"}>Other methods</Link>
+      </p>
     </div>
   );
 }

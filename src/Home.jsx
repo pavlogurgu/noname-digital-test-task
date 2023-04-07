@@ -1,15 +1,17 @@
-import React from "react"
+import React from "react";
 
-export function Home(){
+import { useNavigate } from "react-router-dom";
 
-    const logout = () => {
-        localStorage.clear()
-        window.location.reload()
-    }
-    return(
-        <>
-        <h2>Заглушка</h2>
-        <button onClick={logout}>Log out</button>
-        </>
-    )
+export function Home() {
+  let navigate = useNavigate();
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+  return (
+    <>
+      <h2>Заглушка</h2>
+      <button onClick={logout}>Log out</button>
+    </>
+  );
 }
