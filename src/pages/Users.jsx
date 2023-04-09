@@ -11,7 +11,7 @@ console.log(users)
 
   return  (
     <>
-   {users.map((user) => <h2 key = {nanoid()}></h2>)}
+   {users.map((user) => <h2 key = {nanoid()}>{}</h2>)}
     </>
   )
 }
