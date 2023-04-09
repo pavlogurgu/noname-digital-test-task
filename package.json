@@ -9,6 +9,8 @@
     "bootstrap": "^5.2.3",
     "dotenv": "^16.0.3",
     "firebase": "^9.19.1",
+    "mdb-react-ui-kit": "^6.0.0",
+    "nanoid": "^4.0.2",
     "node-firestore-import-export": "^1.1.0",
     "query-string": "^8.1.0",
     "react": "^18.2.0",

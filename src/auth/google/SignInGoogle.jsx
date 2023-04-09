@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { auth, provider } from "../services/config";
 import { signInWithPopup } from "firebase/auth";
-import { Home } from "../../Home";
+import { Home } from "../../pages/Home";
 import { useNavigate } from "react-router-dom";
 
 export function SignInGoogle() {
