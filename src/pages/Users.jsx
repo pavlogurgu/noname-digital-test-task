@@ -1,7 +1,17 @@
 import data from "../auth/services/dataBackup.json";
+import React, { useEffect, useState } from "react";
+import Form from 'react-bootstrap/Form';
+
 
 export function Users() {
-  console.log(data, typeof data);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  function addRole(){
+    setIsOpen(true)
+
+    
+  }
 
   return (
     <>
@@ -26,6 +36,35 @@ export function Users() {
                 )}
               </p>
               <p class="card-text">Role: {user.role}</p>
+              <button onClick={addRole}>Add Role</button>
+              {isOpen === true ? (
+                <Form>
+                {['radio'].map((type) => (
+                  <div key={`inline-${type}`} className="mb-3">
+                    <Form.Check
+                      label="Пасажир"
+                      name="group1"
+                      type={type}
+                      id={`inline-${type}-1`}
+                    />
+                    <Form.Check
+                      label="Водій"
+                      name="group1"
+                      type={type}
+                      id={`inline-${type}-2`}
+                    />
+                    <Form.Check
+                    
+                      label="Диспетчер"
+                      name="group1"
+                      type={type}
+                      id={`inline-${type}-3`}
+                    />
+                  </div>
+                ))}
+              </Form>
+              ) : null}
+
             </div>
           </div>
         </>

@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 export function SignInGoogle() {
   const [value, setValue] = useState("");
+  const [status, setStatus] = useState(false);
   let navigate = useNavigate();
   const handleClick = () => {
     signInWithPopup(auth, provider).then((data) => {
       setValue(data.user.email);
       localStorage.setItem("email", data.user.email);
       navigate("/home");
+      setStatus(true)
     });
   };
 
@@ -20,7 +22,7 @@ export function SignInGoogle() {
   }, []);
   return (
     <>
-      {value ? (
+           {status === true ? (
         <Home />
       ) : (
         <button onClick={handleClick}>Sign in with Google</button>
